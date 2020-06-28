@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Validation\Validator;
 
 class TasksController extends Controller
 {
@@ -15,6 +14,11 @@ class TasksController extends Controller
     }
 
     public function store(Request $request) {
+
+        $request->validate([
+            'name'=>'required|max:255',
+            'complete' => 'required'
+        ]);
 
         $task = Task::create([
             'name' => $request->input('name'),
@@ -32,6 +36,10 @@ class TasksController extends Controller
     }
 
     public function update(Task $task, Request $request){
+
+        $request->validate([
+            'name'=>'required|max:255',
+        ]);
 
         $task->name = $request->input('name');
 
