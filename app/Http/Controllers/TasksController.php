@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Validation\Validator;
 
 class TasksController extends Controller
 {
@@ -29,5 +30,24 @@ class TasksController extends Controller
         return $task;
 
     }
+
+    public function update(Task $task, Request $request){
+
+        $task->name = $request->input('name');
+
+        $task->save();
+
+        return $task;
+
+    }
+
+    public function destroy(Task $task){ 
+
+        $task->delete();
+
+        return response()->json(['success'=>true]);
+
+    }
+    
 
 }
